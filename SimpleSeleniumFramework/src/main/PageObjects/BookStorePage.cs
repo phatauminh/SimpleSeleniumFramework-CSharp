@@ -17,7 +17,7 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
             return this;
         }
 
-        public IWebElement GetBookStoreHeader() => Map.BookStoreHeader;
+        public IWebElement GetHeader() => Map.BookStoreHeader;
     }
 
     public class BookStoreMap
@@ -30,6 +30,6 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
         }
 
         public IWebElement BookStoreHeader
-                => _driver.FindElement(By.XPath("//div[@class = 'main-header' and text() = 'Book Store']"));
+                => _driver.FindElement(By.XPath("//div[@class='main-header' and text()='Book Store']"));
     }
 }

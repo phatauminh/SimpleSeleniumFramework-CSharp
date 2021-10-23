@@ -1,7 +1,9 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using SimpleSeleniumFramework.src.main.Common.Constants;
+using SimpleSeleniumFramework.src.main.Common.Factories;
+using SimpleSeleniumFramework.src.main.Common.Services;
 using SimpleSeleniumFramework.src.main.Driver;
-using SimpleSeleniumFramework.src.main.PageObjects;
 
 namespace SimpleSeleniumFramework.src.test
 {
@@ -10,11 +12,6 @@ namespace SimpleSeleniumFramework.src.test
     { 
         IWebDriver driver;
 
-        public BookStoreTests()
-        {
-
-        }
-
         [SetUp]
         public void Setup()
         {
@@ -22,15 +19,14 @@ namespace SimpleSeleniumFramework.src.test
             driver.Navigate().GoToUrl("https://demoqa.com");
         }
 
-  
-
-        [Test]
-        public void TC_01_BookStoreNavigation()
+        [TestCase(Card.ELEMENTS)]
+        [TestCase(Card.BOOKSTORE)]
+        public void Navigation_Should_Return_Correct_Header(string cardName)
         {
-            var bookStorePage = new BookStorePage(driver);
-            var header = bookStorePage.GoTo().GetBookStoreHeader();
+            var headerOnPage = PageNavigationFactory.GetHeader(driver,cardName);
+            var expectedBookStore = new CardService().GetCardByName(cardName);
 
-            Assert.IsTrue(header.Displayed);
+            Assert.AreEqual(expectedBookStore.Header, headerOnPage.Text);
         }
 
         //[Test]
