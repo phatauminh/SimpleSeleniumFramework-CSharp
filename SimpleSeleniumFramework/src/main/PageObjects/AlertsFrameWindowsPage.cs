@@ -2,9 +2,9 @@
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
-    public class AlertsFrameWindowsPage : PageBase
+    public class AlertsFrameWindowsPage : BasePage
     {
-        public readonly AlertsFrameWindowsMap Map;
+        private readonly AlertsFrameWindowsMap Map;
 
         public AlertsFrameWindowsPage(IWebDriver driver) : base(driver)
         {

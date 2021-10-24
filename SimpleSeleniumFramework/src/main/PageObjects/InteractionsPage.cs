@@ -2,9 +2,9 @@
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
-    public class InteractionsPage : PageBase
+    public class InteractionsPage : BasePage
     {
-        public readonly InteractionsMap Map;
+        private readonly InteractionsMap Map;
 
         public InteractionsPage(IWebDriver driver) : base(driver)
         {

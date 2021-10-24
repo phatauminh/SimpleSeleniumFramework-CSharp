@@ -4,15 +4,17 @@ using SimpleSeleniumFramework.src.main.Factories;
 
 namespace SimpleSeleniumFramework.src.main.Driver
 {
-    public class WebDriverManagers
+    public static class WebDriverManagers
 	{
+		[ThreadStatic]
         private static IWebDriver _driver;
 
 		public static IWebDriver CreateBrowserDriver(String browserName)
 		{
             _driver = BrowserDriverFactory.Create(browserName);
-			_driver.Manage().Window.Maximize();
 			return _driver;
 		}
+
+		public static IWebDriver Current => _driver ?? throw new NullReferenceException("_driver is Null");
 	}
 }

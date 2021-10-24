@@ -2,9 +2,9 @@
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
-    public class FormsPage : PageBase
+    public class FormsPage : BasePage
     {
-        public readonly FormsMap Map;
+        private readonly FormsMap Map;
 
         public FormsPage(IWebDriver driver) : base(driver)
         {

@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
 using SimpleSeleniumFramework.src.main.Common.Constants;
 using SimpleSeleniumFramework.src.main.Common.Factories;
 using SimpleSeleniumFramework.src.main.Common.Services;
@@ -10,13 +9,11 @@ namespace SimpleSeleniumFramework.src.test
     [TestFixture]
     public class PageNavigationTests
     {
-        IWebDriver driver;
-
         [SetUp]
         public void Setup()
         {
-            driver = WebDriverManagers.CreateBrowserDriver("chrome");
-            driver.Navigate().GoToUrl("https://demoqa.com");
+           WebDriverManagers.CreateBrowserDriver("chrome");
+           WebDriverManagers.Current.Navigate().GoToUrl("https://demoqa.com");
         }
 
         [TestCase(Card.ELEMENTS)]
@@ -25,9 +22,10 @@ namespace SimpleSeleniumFramework.src.test
         [TestCase(Card.WIDGETS)]
         [TestCase(Card.INTERACTIONS)]
         [TestCase(Card.BOOKSTORE)]
+        [Parallelizable(ParallelScope.Children)]
         public void Navigation_Should_Return_Correct_Header(string cardName)
         {
-            var headerOnPage = PageNavigationFactory.GetHeader(driver, cardName);
+            var headerOnPage = PageNavigationFactory.GetHeader(WebDriverManagers.Current, cardName);
             var expectedCard = new CardService().GetCardByName(cardName);
 
             Assert.AreEqual(expectedCard.Header, headerOnPage.Text);
@@ -36,7 +34,7 @@ namespace SimpleSeleniumFramework.src.test
         [TearDown]
         public void TearDown()
         {
-            driver.Quit();
+            WebDriverManagers.Current.Quit();
         }
     }
 }

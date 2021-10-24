@@ -4,8 +4,8 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
 {
     public class PageNavigation
     {
-        public readonly PageNavigationMap Map;
-        public readonly IJavaScriptExecutor js;
+        private readonly PageNavigationMap Map;
+        private readonly IJavaScriptExecutor js;
 
         public PageNavigation(IWebDriver driver)
         {
@@ -28,6 +28,10 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
         public void GoToAlertsFrameWindowsPage() => Map.AlertsFrameWindowsCard.Click();
 
         public void GoToInteractionsPage() => Map.InteractionsCard.Click();
+
+        public void GoToLoginPage() => Map.LoginCard.Click();
+
+        public void GoToProfilePage() => Map.ProfileCard.Click();
     }
 
     public class PageNavigationMap
@@ -57,6 +61,10 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
         public IWebElement BookStoreCard
                 => _driver.FindElement(By.XPath("//h5[text() = 'Book Store Application']"));
 
+        public IWebElement LoginCard
+               => _driver.FindElement(By.Id("login"));
 
+        public IWebElement ProfileCard
+               => _driver.FindElement(By.XPath("//span[@class='text' and text() = 'Profile']"));
     }
 }

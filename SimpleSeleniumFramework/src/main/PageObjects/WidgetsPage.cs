@@ -2,9 +2,9 @@
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
-    public class WidgetsPage : PageBase
+    public class WidgetsPage : BasePage
     {
-        public readonly WidgetsMap Map;
+        private readonly WidgetsMap Map;
 
         public WidgetsPage(IWebDriver driver) : base(driver)
         {

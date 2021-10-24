@@ -1,51 +1,59 @@
-﻿using NUnit.Framework;
+﻿using System.Threading;
+using NUnit.Framework;
 using OpenQA.Selenium;
-using SimpleSeleniumFramework.src.main.Common.Constants;
-using SimpleSeleniumFramework.src.main.Common.Factories;
-using SimpleSeleniumFramework.src.main.Common.Services;
 using SimpleSeleniumFramework.src.main.Driver;
+using SimpleSeleniumFramework.src.main.PageObjects;
 
 namespace SimpleSeleniumFramework.src.test
 {
     [TestFixture]
     public class BookStoreTests
     { 
-        IWebDriver driver;
-
         [SetUp]
         public void Setup()
         {
-            driver = WebDriverManagers.CreateBrowserDriver("chrome");
-            driver.Navigate().GoToUrl("https://demoqa.com");
+            WebDriverManagers.CreateBrowserDriver("chrome");
+            WebDriverManagers.Current.Manage().Window.Maximize();
+            WebDriverManagers.Current.Navigate().GoToUrl("https://demoqa.com/books");
+
         }
 
-        [TestCase(Card.ELEMENTS)]
-        [TestCase(Card.BOOKSTORE)]
-        public void Navigation_Should_Return_Correct_Header(string cardName)
+        [TestCase("nhudinh", "Demo@123","nhudinh")]
+        [TestCase("phatau", "Demo@123","phatau")]
+        [Parallelizable(ParallelScope.Children)]
+        public void TC_01_Login_To_BookStore(string userName, string passWord, string expectedUsernameOnPage)
         {
-            var headerOnPage = PageNavigationFactory.GetHeader(driver,cardName);
-            var expectedBookStore = new CardService().GetCardByName(cardName);
-
-            Assert.AreEqual(expectedBookStore.Header, headerOnPage.Text);
+            var loginPage = new LoginPage(WebDriverManagers.Current);
+            loginPage.GoTo().UserLogin(userName, passWord);
+            var bookStorePage = new BookStorePage(WebDriverManagers.Current);
+            var userNameOnPage = bookStorePage.GetUsernameLabel();
+            Assert.AreEqual(expectedUsernameOnPage, userNameOnPage);
         }
 
-        //[Test]
-        //public void TC_02_UserLogin()
-        //{
+        [Test]
+        public void TC_02_Add_Book_To_Collection()
+        {
+            var loginPage = new LoginPage(WebDriverManagers.Current);
+            loginPage.GoTo().UserLogin("phatau", "Demo@123");
+            Thread.Sleep(3000);
 
-        //}
+            var bookStorePage = new BookStorePage(WebDriverManagers.Current);
+
+            bookStorePage.SelectBookByTitle("Git Pocket Guide");
+            bookStorePage.AddBookToCollection();
+
+            Thread.Sleep(3000);
+            bookStorePage.AcceptAlert();
+            Thread.Sleep(3000);
 
 
-        //[Test]
-        //public void TC_03_AddBooksToCollection()
-        //{
 
-        //}
+        }
 
         [TearDown]
         public void TearDown()
         {
-            driver.Quit();
+            WebDriverManagers.Current.Quit();
         }
     }
 }

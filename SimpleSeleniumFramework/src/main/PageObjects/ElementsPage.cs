@@ -2,9 +2,9 @@
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
-    public class ElementsPage : PageBase
+    public class ElementsPage : BasePage
     {
-        public readonly ElementsMap Map;
+        private readonly ElementsMap Map;
 
         public ElementsPage(IWebDriver driver) : base(driver)
         {
