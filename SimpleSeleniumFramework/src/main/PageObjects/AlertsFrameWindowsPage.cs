@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SimpleSeleniumFramework.src.main.Common;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -6,9 +7,9 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     {
         private readonly AlertsFrameWindowsMap Map;
 
-        public AlertsFrameWindowsPage(IWebDriver driver) : base(driver)
+        public AlertsFrameWindowsPage()
         {
-            Map = new AlertsFrameWindowsMap(driver);
+            Map = new AlertsFrameWindowsMap();
         }
 
         public AlertsFrameWindowsPage GoTo()
@@ -22,14 +23,7 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
 
     public class AlertsFrameWindowsMap
     {
-        private readonly IWebDriver _driver;
-
-        public AlertsFrameWindowsMap(IWebDriver driver)
-        {
-            _driver = driver;
-        }
-
         public IWebElement AlertsFrameWindowsHeader
-                => _driver.FindElement(By.XPath("//div[@class='main-header' and text()='Alerts, Frame & Windows']"));
+                => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Alerts, Frame & Windows']"));
     }
 }

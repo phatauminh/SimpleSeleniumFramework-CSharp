@@ -12,19 +12,19 @@ namespace SimpleSeleniumFramework.src.main.Common.Factories
             switch (cardName)
             {
                 case Card.ELEMENTS:
-                    var elementsPage = new ElementsPage(driver);
+                    var elementsPage = new ElementsPage();
                     return elementsPage.GoTo().GetHeader();
 
                 case Card.FORMS:
-                    var formsPage = new FormsPage(driver);
+                    var formsPage = new FormsPage();
                     return formsPage.GoTo().GetHeader();
 
                 case Card.WIDGETS:
-                    var widgetsPage = new WidgetsPage(driver);
+                    var widgetsPage = new WidgetsPage();
                     return widgetsPage.GoTo().GetHeader();
 
                 case Card.ALERTS_FRAME_WINDOWS:
-                    var alertsFrameWindowsPage = new AlertsFrameWindowsPage(driver);
+                    var alertsFrameWindowsPage = new AlertsFrameWindowsPage();
                     return alertsFrameWindowsPage.GoTo().GetHeader();
 
                 case Card.INTERACTIONS:
@@ -32,7 +32,7 @@ namespace SimpleSeleniumFramework.src.main.Common.Factories
                     return interactionsPage.GoTo().GetHeader();
 
                 case Card.BOOKSTORE:
-                    var bookStorePage = new BookStorePage(driver);
+                    var bookStorePage = new BookStorePage();
                     return bookStorePage.GoTo().GetHeader();
                 
                 default:

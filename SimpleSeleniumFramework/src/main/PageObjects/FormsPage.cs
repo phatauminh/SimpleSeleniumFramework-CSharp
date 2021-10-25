@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SimpleSeleniumFramework.src.main.Common;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -6,9 +7,9 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     {
         private readonly FormsMap Map;
 
-        public FormsPage(IWebDriver driver) : base(driver)
+        public FormsPage()
         {
-            Map = new FormsMap(driver);
+            Map = new FormsMap();
         }
 
         public FormsPage GoTo()
@@ -22,14 +23,7 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
 
     public class FormsMap
     {
-        private readonly IWebDriver _driver;
-
-        public FormsMap(IWebDriver driver)
-        {
-            _driver = driver;
-        }
-
         public IWebElement FormsHeader
-                => _driver.FindElement(By.XPath("//div[@class='main-header' and text()='Forms']"));
+                => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Forms']"));
     }
 }

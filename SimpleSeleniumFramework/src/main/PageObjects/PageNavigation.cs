@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SimpleSeleniumFramework.src.main.Common;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -7,10 +8,10 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
         private readonly PageNavigationMap Map;
         private readonly IJavaScriptExecutor js;
 
-        public PageNavigation(IWebDriver driver)
+        public PageNavigation()
         {
-            Map = new PageNavigationMap(driver);
-            js = (IJavaScriptExecutor)driver;
+            Map = new PageNavigationMap();
+            js = (IJavaScriptExecutor)Driver.Current;
         }
 
         public void GoToBookStorePage()
@@ -36,35 +37,29 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
 
     public class PageNavigationMap
     {
-        public readonly IWebDriver _driver;
-
-        public PageNavigationMap(IWebDriver driver)
-        {
-            _driver = driver;
-        }
 
         public IWebElement ElementsCard
-                 => _driver.FindElement(By.XPath("//h5[text() = 'Elements']"));
+                 => Driver.FindElement(By.XPath("//h5[text() = 'Elements']"));
 
         public IWebElement FormsCard
-                 => _driver.FindElement(By.XPath("//h5[text() = 'Forms']"));
+                 => Driver.FindElement(By.XPath("//h5[text() = 'Forms']"));
 
         public IWebElement WidgetsCard
-                => _driver.FindElement(By.XPath("//h5[text() = 'Widgets']"));
+                => Driver.FindElement(By.XPath("//h5[text() = 'Widgets']"));
 
         public IWebElement AlertsFrameWindowsCard
-                => _driver.FindElement(By.XPath("//h5[text() = 'Alerts, Frame & Windows']"));
+                => Driver.FindElement(By.XPath("//h5[text() = 'Alerts, Frame & Windows']"));
 
         public IWebElement InteractionsCard
-         => _driver.FindElement(By.XPath("//h5[text() = 'Interactions']"));
+                => Driver.FindElement(By.XPath("//h5[text() = 'Interactions']"));
 
         public IWebElement BookStoreCard
-                => _driver.FindElement(By.XPath("//h5[text() = 'Book Store Application']"));
+                => Driver.FindElement(By.XPath("//h5[text() = 'Book Store Application']"));
 
         public IWebElement LoginCard
-               => _driver.FindElement(By.Id("login"));
+               => Driver.FindElement(By.Id("login"));
 
         public IWebElement ProfileCard
-               => _driver.FindElement(By.XPath("//span[@class='text' and text() = 'Profile']"));
+               => Driver.FindElement(By.XPath("//span[@class='text' and text() = 'Profile']"));
     }
 }

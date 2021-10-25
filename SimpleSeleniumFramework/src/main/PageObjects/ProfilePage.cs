@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.Generic;
+using System.Linq;
+using OpenQA.Selenium;
+using SimpleSeleniumFramework.src.main.Common;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -6,9 +9,9 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     {
         private readonly ProfileMap Map;
 
-        public ProfilePage(IWebDriver driver) : base(driver)
+        public ProfilePage()
         {
-            Map = new ProfileMap(driver);
+            Map = new ProfileMap();
         }
 
         public ProfilePage GoTo()
@@ -18,18 +21,21 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
         }
 
         public IWebElement GetHeader() => Map.ProfileHeader;
+
+        public IWebElement SelectBookFromCollectionByTitle(string title)
+        {
+            var selectedBook = Map.BookFromCollection.Where(x => x.Text.Contains(title)).FirstOrDefault();
+            return selectedBook;
+        }
     }
 
     public class ProfileMap
     {
-        private readonly IWebDriver _driver;
-
-        public ProfileMap(IWebDriver driver)
-        {
-            _driver = driver;
-        }
 
         public IWebElement ProfileHeader
-                => _driver.FindElement(By.XPath("//div[@class='main-header' and text()='Profile']"));
+                => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Profile']"));
+
+        public IList<IWebElement> BookFromCollection
+                => Driver.FindElements(By.XPath("//span[contains(@id, 'see-book-')]"));
     }
 }

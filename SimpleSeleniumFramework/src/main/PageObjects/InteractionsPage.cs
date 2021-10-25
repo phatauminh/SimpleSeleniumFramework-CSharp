@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SimpleSeleniumFramework.src.main.Common;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -6,9 +7,9 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     {
         private readonly InteractionsMap Map;
 
-        public InteractionsPage(IWebDriver driver) : base(driver)
+        public InteractionsPage(IWebDriver driver)
         {
-            Map = new InteractionsMap(driver);
+            Map = new InteractionsMap();
         }
 
         public InteractionsPage GoTo()
@@ -22,14 +23,8 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
 
     public class InteractionsMap
     {
-        private readonly IWebDriver _driver;
-
-        public InteractionsMap(IWebDriver driver)
-        {
-            _driver = driver;
-        }
 
         public IWebElement AlertsFrameWindowsHeader
-                => _driver.FindElement(By.XPath("//div[@class='main-header' and text()='Interactions']"));
+                => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Interactions']"));
     }
 }

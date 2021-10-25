@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using OpenQA.Selenium;
+using SimpleSeleniumFramework.src.main.Common;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -8,9 +9,9 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     {
         private readonly BookStoreMap Map;
 
-        public BookStorePage(IWebDriver driver) : base(driver)
+        public BookStorePage()
         {
-            Map = new BookStoreMap(driver);
+            Map = new BookStoreMap();
         }
 
         public BookStorePage GoTo()
@@ -23,7 +24,19 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
 
         public string GetUsernameLabel() => Map.UsernameLabel.Text;
 
-        public void SelectBookByTitle(string title)
+
+
+        public void AddBookToCollection(string title)
+        {
+            SelectBookByTitle(title);
+            Map.AddNewRecordButton.Click();
+        }
+
+
+        public void AcceptAlert() => Map.Alert.Accept();
+
+
+        private void SelectBookByTitle(string title)
         {
             var selectedBook = Map.Books.Where(x => x.Text.Contains(title)).FirstOrDefault();
 
@@ -31,36 +44,23 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
                 selectedBook.Click();
         }
 
-        public void AddBookToCollection() => Map.AddNewRecordButton.Click();
-
-        public void AcceptAlert() => Map.Alert.Accept();
-            
     }
 
     public class BookStoreMap
     {
-        private readonly IWebDriver _driver;
-
-        public BookStoreMap(IWebDriver driver)
-        {
-            _driver = driver;
-        }
-
         public IWebElement BookStoreHeader
-                => _driver.FindElement(By.XPath("//div[@class='main-header' and text()='Book Store']"));
-
-       
+                => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Book Store']"));
 
         public IWebElement UsernameLabel
-                => _driver.FindElement(By.Id("userName-value"));
+                => Driver.FindElement(By.Id("userName-value"));
 
-        public List<IWebElement> Books
-                => _driver.FindElements(By.XPath("//span[contains(@id, 'see-book-')]")).ToList();
+        public IList<IWebElement> Books
+                => Driver.FindElements(By.XPath("//span[contains(@id, 'see-book-')]"));
 
         public IWebElement AddNewRecordButton
-                => _driver.FindElement(By.XPath("//button[@id = 'addNewRecordButton' and text() = 'Add To Your Collection']"));
+                => Driver.FindElement(By.XPath("//button[@id = 'addNewRecordButton' and text() = 'Add To Your Collection']"));
 
         public IAlert Alert
-                => _driver.SwitchTo().Alert();
+                => Driver.SwitchTo().Alert();
     }
 }

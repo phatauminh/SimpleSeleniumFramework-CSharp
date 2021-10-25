@@ -24,7 +24,6 @@
     <Folder Include="src\main\" />
     <Folder Include="src\test\" />
     <Folder Include="src\main\PageObjects\" />
-    <Folder Include="src\main\Driver\" />
     <Folder Include="src\main\Common\" />
     <Folder Include="src\main\Common\Factories\" />
     <Folder Include="src\main\Common\Constants\" />

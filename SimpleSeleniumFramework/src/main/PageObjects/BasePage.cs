@@ -6,9 +6,9 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     {
         protected readonly PageNavigation PageNavigation;
 
-        public BasePage(IWebDriver driver)
+        public BasePage()
         {
-            PageNavigation = new PageNavigation(driver);
+            PageNavigation = new PageNavigation();
         }
     }
 }

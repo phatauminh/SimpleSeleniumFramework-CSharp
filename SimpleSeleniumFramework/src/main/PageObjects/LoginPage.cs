@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SimpleSeleniumFramework.src.main.Common;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -6,9 +7,9 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     {
         private readonly LoginMap Map;
 
-        public LoginPage(IWebDriver driver) : base(driver)
+        public LoginPage()
         {
-            Map = new LoginMap(driver);
+            Map = new LoginMap();
         }
 
         public LoginPage GoTo()
@@ -31,23 +32,17 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
 
     public class LoginMap
     {
-        private readonly IWebDriver _driver;
-
-        public LoginMap(IWebDriver driver)
-        {
-            _driver = driver;
-        }
 
         public IWebElement LoginHeader
-                => _driver.FindElement(By.XPath("//div[@class='main-header' and text()='Login']"));
+                => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Login']"));
 
         public IWebElement UsernameTextbox
-               => _driver.FindElement(By.Id("userName"));
+               => Driver.FindElement(By.Id("userName"));
 
         public IWebElement PasswordTextbox
-                => _driver.FindElement(By.Id("password"));
+                => Driver.FindElement(By.Id("password"));
 
         public IWebElement LoginButton
-               => _driver.FindElement(By.Id("login"));
+               => Driver.FindElement(By.Id("login"));
     }
 }
