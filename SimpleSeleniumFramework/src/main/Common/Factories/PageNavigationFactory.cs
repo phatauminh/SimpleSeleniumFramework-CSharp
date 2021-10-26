@@ -7,7 +7,7 @@ namespace SimpleSeleniumFramework.src.main.Common.Factories
 {
     public static class PageNavigationFactory
     {
-        public static IWebElement GetHeader(IWebDriver driver, string cardName)
+        public static IWebElement GetHeader(string cardName)
         {
             switch (cardName)
             {
@@ -28,7 +28,7 @@ namespace SimpleSeleniumFramework.src.main.Common.Factories
                     return alertsFrameWindowsPage.GoTo().GetHeader();
 
                 case Card.INTERACTIONS:
-                    var interactionsPage = new InteractionsPage(driver);
+                    var interactionsPage = new InteractionsPage();
                     return interactionsPage.GoTo().GetHeader();
 
                 case Card.BOOKSTORE:

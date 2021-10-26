@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
-using SimpleSeleniumFramework.src.main.Common;
 using SimpleSeleniumFramework.src.main.Common.Constants;
 using SimpleSeleniumFramework.src.main.Common.Factories;
-using SimpleSeleniumFramework.src.main.Common.Services;
+using SimpleSeleniumFramework.src.main.Framework.Selenium;
+using SimpleSeleniumFramework.src.main.Framework.Services;
 
 namespace SimpleSeleniumFramework.src.test
 {
@@ -25,8 +25,8 @@ namespace SimpleSeleniumFramework.src.test
         [Parallelizable(ParallelScope.Children)]
         public void Navigation_Should_Return_Correct_Header(string cardName)
         {
-            var headerOnPage = PageNavigationFactory.GetHeader(Driver.Current, cardName);
-            var expectedCard = new CardService().GetCardByName(cardName);
+            var headerOnPage = PageNavigationFactory.GetHeader(cardName);
+            var expectedCard = new InMemoryCardService().GetCardByName(cardName);
 
             Assert.AreEqual(expectedCard.Header, headerOnPage.Text);
         }

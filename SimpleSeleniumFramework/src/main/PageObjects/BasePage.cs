@@ -1,6 +1,4 @@
-﻿using OpenQA.Selenium;
-
-namespace SimpleSeleniumFramework.src.main.PageObjects
+﻿namespace SimpleSeleniumFramework.src.main.PageObjects
 {
     public abstract class BasePage
     {

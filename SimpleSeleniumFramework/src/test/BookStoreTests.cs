@@ -1,14 +1,19 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using SimpleSeleniumFramework.src.main.Common;
-using SimpleSeleniumFramework.src.main.PageObjects;
+using SimpleSeleniumFramework.src.main.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.src.test
 {
     [TestFixture]
     public class BookStoreTests
     {
-         static string[] testcase = { "Git Pocket Guide", "Learning JavaScript Design Patterns" };
+        private static List<string> expectedStoredBook = new()
+        {
+            "Learning JavaScript Design Patterns",
+            "Designing Evolvable Web APIs with ASP.NET"
+        };
+
 
         [SetUp]
         public void Setup()
@@ -18,16 +23,14 @@ namespace SimpleSeleniumFramework.src.test
             Driver.GoToUrl("https://demoqa.com/books");
         }
 
-        [TestCase("nhudinh", "Demo@123","nhudinh")]
-        [TestCase("phatau", "Demo@123","phatau")]
+        [TestCase("nhudinh", "Demo@123", "nhudinh")]
+        [TestCase("phatau", "Demo@123", "phatau")]
         [Parallelizable(ParallelScope.Children)]
         public void TC_01_Login_To_BookStore(string userName, string passWord, string expectedUsernameOnPage)
         {
-            var loginPage = Pages.Login;
-            loginPage.GoTo().UserLogin(userName, passWord);
+            Pages.Login.GoTo().UserLogin(userName, passWord);
 
-            var bookStorePage = Pages.BookStore;
-            var userNameOnPage = bookStorePage.GetUsernameLabel();
+            var userNameOnPage = Pages.BookStore.GetUsernameLabel();
 
             Assert.AreEqual(expectedUsernameOnPage, userNameOnPage);
         }
@@ -37,31 +40,41 @@ namespace SimpleSeleniumFramework.src.test
         [Parallelizable(ParallelScope.Children)]
         public void TC_02_Add_Book_To_Collection(string book)
         {
-            var loginPage = Pages.Login;
-            loginPage.GoTo().UserLogin("phatau", "Demo@123");
-            Thread.Sleep(3000);
+            Pages.Login.GoTo().UserLogin("phatau", "Demo@123");
 
-            var bookStorePage = Pages.BookStore;
+            Pages.BookStore.AddBookToCollection(book);
 
-            bookStorePage.AddBookToCollection(book);
-
-            Thread.Sleep(3000);
-            bookStorePage.AcceptAlert();
-            Thread.Sleep(3000);
-
-            var profilePage = Pages.Profile;
-
-            profilePage.GoTo();
-            Thread.Sleep(3000);
-            var bookOnCollection = profilePage.SelectBookFromCollectionByTitle(book).Text;
+            var bookOnCollection = Pages.Profile.GoTo().SelectBookFromCollection(book);
 
             Assert.AreEqual(book, bookOnCollection);
+        }
+
+        [Test]
+        public void TC_03_Search_Book_With_Multiple_Results()
+        {
+            Pages.BookStore.FindBooksByTitle("Design");
+            var storedBookOnPage = Pages.BookStore.GetBookStore();
+            Assert.AreEqual(expectedStoredBook, storedBookOnPage);
+        }
+
+        [TestCase("Designing Evolvable Web APIs with ASP.NET")]
+        public void TC_04_Delete_Book_From_Collection(string book)
+        {
+            Pages.Login.GoTo().UserLogin("phatau", "Demo@123");
+            Pages.BookStore.AddBookToCollection(book);
+
+            Pages.Profile.GoTo().DeleteBookFromCollection(book);
+
+            string bookOnPage = Pages.Profile.SelectBookFromCollection(book);
+
+            Assert.IsNull(bookOnPage);
+
         }
 
         [TearDown]
         public void TearDown()
         {
-            Driver.Quit();
+            Driver.Current.Quit();
         }
     }
 }

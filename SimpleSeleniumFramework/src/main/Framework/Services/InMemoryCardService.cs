@@ -1,11 +1,11 @@
 ﻿using SimpleSeleniumFramework.src.main.Common.Constants;
 using SimpleSeleniumFramework.src.main.Common.Interfaces;
-using SimpleSeleniumFramework.src.main.Common.Models;
+using SimpleSeleniumFramework.src.main.Framework.Models;
 using System;
 
-namespace SimpleSeleniumFramework.src.main.Common.Services
+namespace SimpleSeleniumFramework.src.main.Framework.Services
 {
-    public class CardService : ICardService
+    public class InMemoryCardService : ICardService
     {
         public ICard GetCardByName(string cardName)
         {

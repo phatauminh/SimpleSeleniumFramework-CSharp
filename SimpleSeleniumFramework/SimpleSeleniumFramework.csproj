@@ -27,5 +27,15 @@
     <Folder Include="src\main\Common\" />
     <Folder Include="src\main\Common\Factories\" />
     <Folder Include="src\main\Common\Constants\" />
+    <Folder Include="src\main\Framework\" />
+    <Folder Include="src\main\Framework\Selenium\" />
+    <Folder Include="src\main\Framework\Models\" />
+    <Folder Include="src\main\Framework\Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\main\Framework\" />
+    <None Remove="src\main\Framework\Selenium\" />
+    <None Remove="src\main\Framework\Models\" />
+    <None Remove="src\main\Framework\Services\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
-using SimpleSeleniumFramework.src.main.Common;
+using OpenQA.Selenium.Support.UI;
+using SimpleSeleniumFramework.src.main.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -20,7 +21,12 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
 
         public void UserLogin(string username, string password)
         {
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.LoginHeader.FoundBy));
+
+            Map.UsernameTextbox.Clear();
             Map.UsernameTextbox.SendKeys(username);
+
+            Map.PasswordTextbox.Clear();
             Map.PasswordTextbox.SendKeys(password);
 
             Map.LoginButton.Click();
@@ -33,16 +39,16 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     public class LoginMap
     {
 
-        public IWebElement LoginHeader
+        public Element LoginHeader
                 => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Login']"));
 
-        public IWebElement UsernameTextbox
+        public Element UsernameTextbox
                => Driver.FindElement(By.Id("userName"));
 
-        public IWebElement PasswordTextbox
+        public Element PasswordTextbox
                 => Driver.FindElement(By.Id("password"));
 
-        public IWebElement LoginButton
+        public Element LoginButton
                => Driver.FindElement(By.Id("login"));
     }
 }

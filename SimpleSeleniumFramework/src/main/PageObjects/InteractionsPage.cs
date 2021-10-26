@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using SimpleSeleniumFramework.src.main.Common;
+using SimpleSeleniumFramework.src.main.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -7,7 +7,7 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     {
         private readonly InteractionsMap Map;
 
-        public InteractionsPage(IWebDriver driver)
+        public InteractionsPage()
         {
             Map = new InteractionsMap();
         }
@@ -24,7 +24,7 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
     public class InteractionsMap
     {
 
-        public IWebElement AlertsFrameWindowsHeader
+        public Element AlertsFrameWindowsHeader
                 => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Interactions']"));
     }
 }

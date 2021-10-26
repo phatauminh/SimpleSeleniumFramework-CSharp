@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using SimpleSeleniumFramework.src.main.Common;
+using SimpleSeleniumFramework.src.main.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.src.main.PageObjects
 {
@@ -23,7 +23,7 @@ namespace SimpleSeleniumFramework.src.main.PageObjects
 
     public class AlertsFrameWindowsMap
     {
-        public IWebElement AlertsFrameWindowsHeader
+        public Element AlertsFrameWindowsHeader
                 => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Alerts, Frame & Windows']"));
     }
 }
