@@ -20,22 +20,17 @@
 
   
   <ItemGroup>
-    <Folder Include="src\" />
-    <Folder Include="src\main\" />
-    <Folder Include="src\test\" />
-    <Folder Include="src\main\PageObjects\" />
-    <Folder Include="src\main\Common\" />
-    <Folder Include="src\main\Common\Factories\" />
-    <Folder Include="src\main\Common\Constants\" />
-    <Folder Include="src\main\Framework\" />
-    <Folder Include="src\main\Framework\Selenium\" />
-    <Folder Include="src\main\Framework\Models\" />
-    <Folder Include="src\main\Framework\Services\" />
+    <Folder Include="DemoQA\" />
+    <Folder Include="DemoQA.Tests\" />
+    <Folder Include="DemoQA\PageObjects\" />
+    <Folder Include="DemoQA\Framework\" />
+    <Folder Include="DemoQA\Common\" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="src\main\Framework\" />
-    <None Remove="src\main\Framework\Selenium\" />
-    <None Remove="src\main\Framework\Models\" />
-    <None Remove="src\main\Framework\Services\" />
+    <None Remove="DemoQA\" />
+    <None Remove="DemoQA.Tests\" />
+    <None Remove="DemoQA\PageObjects\" />
+    <None Remove="DemoQA\Framework\" />
+    <None Remove="DemoQA\Common\" />
   </ItemGroup>
 </Project>
