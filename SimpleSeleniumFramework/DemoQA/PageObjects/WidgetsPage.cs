@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SimpleSeleniumFramework.DemoQA.Common.Constants;
 using SimpleSeleniumFramework.DemoQA.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.DemoQA.PageObjects
@@ -14,11 +16,15 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
 
         public WidgetsPage GoTo()
         {
-            PageNavigation.GoToWidgetsPage();
+            PageNavigation.GoToPageBy(Card.WIDGETS);
             return this;
         }
 
-        public IWebElement GetHeader() => Map.WidgetsHeader;
+        public IWebElement GetHeader()
+        {
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.WidgetsHeader.FoundBy));
+            return Map.WidgetsHeader;
+        }
     }
 
     public class WidgetsMap

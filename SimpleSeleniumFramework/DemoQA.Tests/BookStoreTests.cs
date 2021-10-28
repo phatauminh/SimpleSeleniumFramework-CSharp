@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using SimpleSeleniumFramework.DemoQA.Common;
 using SimpleSeleniumFramework.DemoQA.Framework.Selenium;
@@ -14,58 +15,93 @@ namespace SimpleSeleniumFramework.DemoQA.Tests
             "Designing Evolvable Web APIs with ASP.NET"
         };
 
-
         [SetUp]
         public void Setup()
         {
             Driver.Init("chrome");
             Pages.Init();
-            Driver.GoToUrl("https://demoqa.com/books");
-        }
-
-        [TestCase("nhudinh", "Demo@123", "nhudinh")]
-        [TestCase("phatau", "Demo@123", "phatau")]
-        [Parallelizable(ParallelScope.Children)]
-        public void TC_01_Login_To_BookStore(string userName, string passWord, string expectedUsernameOnPage)
-        {
-            Pages.Login.GoTo().UserLogin(userName, passWord);
-
-            var userNameOnPage = Pages.BookStore.GetUsernameLabel();
-
-            Assert.AreEqual(expectedUsernameOnPage, userNameOnPage);
+            Driver.GoToUrl("https://demoqa.com");
+            Console.WriteLine("Setup");
         }
 
         [TestCase("Git Pocket Guide")]
         [TestCase("Learning JavaScript Design Patterns")]
-        [Parallelizable(ParallelScope.Children)]
-        public void TC_02_Add_Book_To_Collection(string book)
+        public void TC_01_Add_Book_To_Collection(string title)
         {
-            Pages.Login.GoTo().UserLogin("phatau", "Demo@123");
+            Pages.BookStore.GoTo();
 
-            Pages.BookStore.AddBookToCollection(book);
+            Pages.Login.GoTo();
 
-            var bookOnCollection = Pages.Profile.GoTo().SelectBookFromCollection(book);
+            Pages.Login.EnterUserCredential("phatau", "Demo@123");
 
-            Assert.AreEqual(book, bookOnCollection);
+            Pages.Login.ClickOnLoginButton();
+
+            Pages.BookStore.WaitForUserInBookStorePage();
+
+            Pages.BookDetail.GoToBy(title);
+
+            Pages.BookDetail.ClickOnAddBookToYourCollection();
+
+            Pages.BookDetail.WaitForTheAlertPresent();
+
+            Pages.BookDetail.AcceptAlert();
+
+            Pages.Profile.GoTo();
+
+            var bookOnCollection = Pages.Profile.SelectBookFromCollection(title);
+
+            Assert.AreEqual(title, bookOnCollection);
         }
 
-        [Test]
-        public void TC_03_Search_Book_With_Multiple_Results()
+        [TestCase("Design")]
+        [TestCase("design")]
+        [Parallelizable(ParallelScope.Children)]
+        public void TC_02_Search_Book_With_Multiple_Results(string title)
         {
-            Pages.BookStore.FindBooksByTitle("Design");
+            Pages.BookStore.GoTo();
+
+            Pages.BookStore.FindBooksByTitle(title);
+
             var storedBookOnPage = Pages.BookStore.GetBookStore();
             Assert.AreEqual(expectedStoredBook, storedBookOnPage);
         }
 
         [TestCase("Designing Evolvable Web APIs with ASP.NET")]
-        public void TC_04_Delete_Book_From_Collection(string book)
+        public void TC_03_Delete_Book_From_Collection(string title)
         {
-            Pages.Login.GoTo().UserLogin("phatau", "Demo@123");
-            Pages.BookStore.AddBookToCollection(book);
+            Pages.BookStore.GoTo();
 
-            Pages.Profile.GoTo().DeleteBookFromCollection(book);
+            Pages.Login.GoTo();
 
-            string bookOnPage = Pages.Profile.SelectBookFromCollection(book);
+            Pages.Login.EnterUserCredential("phatau", "Demo@123");
+
+            Pages.Login.ClickOnLoginButton();
+
+            Pages.BookStore.WaitForUserInBookStorePage();
+
+            Pages.BookDetail.GoToBy(title);
+
+            Pages.BookDetail.ClickOnAddBookToYourCollection();
+
+            Pages.BookDetail.WaitForTheAlertPresent();
+
+            Pages.BookDetail.AcceptAlert();
+
+            Pages.Profile.GoTo();
+
+            Pages.Profile.WaitForUserInProfilePage();
+            
+            Pages.Profile.ClickOnDeleteIconFromCollection(title);
+
+            Pages.Profile.WaitForModalVisible();
+
+            Pages.Profile.ClickOnConfirmToDeleteItem();
+
+            Pages.Profile.WaitForTheAlertPresent();
+
+            Pages.Profile.AcceptAlert();
+
+            string bookOnPage = Pages.Profile.SelectBookFromCollection(title);
 
             Assert.IsNull(bookOnPage);
 

@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SimpleSeleniumFramework.DemoQA.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.DemoQA.PageObjects
@@ -14,52 +15,27 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
             js = (IJavaScriptExecutor)Driver.Current;
         }
 
-        public void GoToBookStorePage()
+        public void GoToPageBy(string cardName)
         {
             ScrollToBottom();
-            Map.BookStoreCard.Click();
+            Map.NavigateBy(cardName).Click();
         }
 
-        public void GoToElementsPage()
+        public void GoToBookDetailBy(string title)
         {
-            ScrollToBottom();
-            Map.ElementsCard.Click();
-        }
-
-        public void GoToFormsPage()
-        {
-            ScrollToBottom();
-            Map.FormsCard.Click();
-        }
-
-        public void GoToWidgetsPage()
-        {
-            ScrollToBottom();
-            Map.WidgetsCard.Click();
-        }
-
-        public void GoToAlertsFrameWindowsPage()
-        {
-            ScrollToBottom();
-            Map.AlertsFrameWindowsCard.Click();
-        }
-
-        public void GoToInteractionsPage()
-        {
-            ScrollToBottom();
-            Map.InteractionsCard.Click();
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.GoToBookDetail(title).FoundBy)).Click();
         }
 
         public void GoToLoginPage()
         {
             ScrollToBottom();
-            Map.LoginCard.Click();
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.LoginCard.FoundBy)).Click();
         }
 
         public void GoToProfilePage()
         {
             ScrollToBottom();
-            Map.ProfileCard.Click();
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.ProfileCard.FoundBy)).Click();
         }
 
         private void ScrollToBottom()
@@ -71,28 +47,16 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
     public class PageNavigationMap
     {
 
-        public Element ElementsCard
-                 => Driver.FindElement(By.XPath("//h5[text() = 'Elements']"));
-
-        public Element FormsCard
-                 => Driver.FindElement(By.XPath("//h5[text() = 'Forms']"));
-
-        public Element WidgetsCard
-                => Driver.FindElement(By.XPath("//h5[text() = 'Widgets']"));
-
-        public Element AlertsFrameWindowsCard
-                => Driver.FindElement(By.XPath("//h5[text() = 'Alerts, Frame & Windows']"));
-
-        public Element InteractionsCard
-                => Driver.FindElement(By.XPath("//h5[text() = 'Interactions']"));
-
-        public Element BookStoreCard
-                => Driver.FindElement(By.XPath("//h5[text() = 'Book Store Application']"));
+        public Element NavigateBy(string cardName)
+               => Driver.FindElement(By.XPath($"//h5[text() = '{cardName}']"));
 
         public Element LoginCard
                => Driver.FindElement(By.Id("login"));
 
         public Element ProfileCard
                => Driver.FindElement(By.XPath("//span[@class='text' and text() = 'Profile']"));
+
+        public Elements GoToBookDetail(string title)
+               => Driver.FindElements(By.XPath($"//span[contains(@id, 'see-book-{title}')]"));
     }
 }

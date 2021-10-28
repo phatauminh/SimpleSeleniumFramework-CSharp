@@ -34,7 +34,7 @@ namespace SimpleSeleniumFramework.DemoQA.Tests
         [TearDown]
         public void TearDown()
         {
-            Driver.Quit();
+            Driver.Current.Quit();
         }
     }
 }

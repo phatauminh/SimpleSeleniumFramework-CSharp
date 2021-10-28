@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SimpleSeleniumFramework.DemoQA.Common.Constants;
 using SimpleSeleniumFramework.DemoQA.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.DemoQA.PageObjects
@@ -14,17 +16,21 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
 
         public InteractionsPage GoTo()
         {
-            PageNavigation.GoToInteractionsPage();
+            PageNavigation.GoToPageBy(Card.INTERACTIONS);
             return this;
         }
 
-        public IWebElement GetHeader() => Map.AlertsFrameWindowsHeader;
+        public IWebElement GetHeader()
+        {
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.InteractionsHeader.FoundBy));
+            return Map.InteractionsHeader;
+        }
     }
 
     public class InteractionsMap
     {
 
-        public Element AlertsFrameWindowsHeader
+        public Element InteractionsHeader
                 => Driver.FindElement(By.XPath("//div[@class='main-header' and text()='Interactions']"));
     }
 }

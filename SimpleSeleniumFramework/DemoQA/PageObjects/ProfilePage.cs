@@ -20,7 +20,11 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
             return this;
         }
 
-        public IWebElement GetHeader() => Map.ProfileHeader;
+        public IWebElement GetHeader()
+        {
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.ProfileHeader.FoundBy));
+            return Map.ProfileHeader;
+        }
 
         public string SelectBookFromCollection(string title)
         {
@@ -30,19 +34,31 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
             return selectedBook?.Text;
         }
 
-        public void DeleteBookFromCollection(string title)
+        public void WaitForUserInProfilePage()
+        {
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.ProfileHeader.FoundBy));
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.UsernameLabel.FoundBy));
+        }
+
+
+        public void ClickOnDeleteIconFromCollection(string title)
         {
             Driver.Wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(Map.BookFromCollection.FoundBy));
             Map.DeleteButton(title).Click();
-
-            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.ModalContent.FoundBy));
-            Map.ConfirmedModalButton.Click();
-
-            Driver.Wait.Until(ExpectedConditions.AlertIsPresent());
-            AcceptAlert();
         }
 
-        private void AcceptAlert() => Map.Alert.Accept();
+        public void WaitForModalVisible()
+           => Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.ModalContent.FoundBy));
+        
+        
+        public void ClickOnConfirmToDeleteItem()
+           => Driver.Wait.Until(ExpectedConditions.ElementToBeClickable(Map.ConfirmedModalButton.FoundBy)).Click();
+
+
+        public void WaitForTheAlertPresent()
+           => Driver.Wait.Until(ExpectedConditions.AlertIsPresent());
+
+        public void AcceptAlert() => Map.Alert.Accept();
     }
 
     public class ProfileMap
@@ -65,6 +81,9 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
 
         public IAlert Alert
                 => Driver.SwitchTo().Alert();
+
+        public Element UsernameLabel
+               => Driver.FindElement(By.Id("userName-value"));
 
     }
 }

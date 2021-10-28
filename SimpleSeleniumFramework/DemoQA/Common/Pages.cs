@@ -14,11 +14,15 @@ namespace SimpleSeleniumFramework.DemoQA.Common
         [ThreadStatic]
         public static ProfilePage Profile;
 
+        [ThreadStatic]
+        public static BookDetailPage BookDetail;
+
         public static void Init()
         {
             Login = new LoginPage();
             BookStore = new BookStorePage();
             Profile = new ProfilePage();
+            BookDetail = new BookDetailPage();
         }
     }
 }

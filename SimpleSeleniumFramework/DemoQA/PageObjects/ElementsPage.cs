@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SimpleSeleniumFramework.DemoQA.Common.Constants;
 using SimpleSeleniumFramework.DemoQA.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.DemoQA.PageObjects
@@ -14,11 +16,16 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
 
         public ElementsPage GoTo()
         {
-            PageNavigation.GoToElementsPage();
+            PageNavigation.GoToPageBy(Card.ELEMENTS);
             return this;
         }
 
-        public IWebElement GetHeader() => Map.ElementsHeader;
+        public IWebElement GetHeader()
+        {
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.ElementsHeader.FoundBy));
+            return Map.ElementsHeader; 
+        }
+        
     }
 
     public class ElementsMap

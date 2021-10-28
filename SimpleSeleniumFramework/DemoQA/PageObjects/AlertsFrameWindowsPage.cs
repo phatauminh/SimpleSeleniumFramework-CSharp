@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SimpleSeleniumFramework.DemoQA.Common.Constants;
 using SimpleSeleniumFramework.DemoQA.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.DemoQA.PageObjects
@@ -14,11 +16,15 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
 
         public AlertsFrameWindowsPage GoTo()
         {
-            PageNavigation.GoToAlertsFrameWindowsPage();
+            PageNavigation.GoToPageBy(Card.ALERTS_FRAME_WINDOWS);
             return this;
         }
 
-        public IWebElement GetHeader() => Map.AlertsFrameWindowsHeader;
+        public IWebElement GetHeader()
+        {
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.AlertsFrameWindowsHeader.FoundBy));
+            return Map.AlertsFrameWindowsHeader;
+        } 
     }
 
     public class AlertsFrameWindowsMap

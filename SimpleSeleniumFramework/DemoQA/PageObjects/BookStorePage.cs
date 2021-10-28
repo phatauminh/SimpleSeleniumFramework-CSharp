@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SimpleSeleniumFramework.DemoQA.Common.Constants;
 using SimpleSeleniumFramework.DemoQA.Framework.Selenium;
 
 namespace SimpleSeleniumFramework.DemoQA.PageObjects
@@ -9,49 +9,30 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
     public class BookStorePage : BasePage
     {
         public readonly BookStoreMap Map;
-        private readonly IJavaScriptExecutor js;
+        
 
         public BookStorePage()
         {
             Map = new BookStoreMap();
-            js = (IJavaScriptExecutor)Driver.Current;
         }
 
         public BookStorePage GoTo()
         {
-            PageNavigation.GoToBookStorePage();
+            PageNavigation.GoToPageBy(Card.BOOKSTORE_APPLICATION);
             return this;
         }
 
-        public IWebElement GetHeader() => Map.BookStoreHeader;
-
-        public string GetUsernameLabel()
+        public IWebElement GetHeader()
         {
-            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.UsernameLabel.FoundBy));   
-            return Map.UsernameLabel.Text;
-        }
-
-        public void AddBookToCollection(string title)
-        {
-            Driver.Wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(Map.Books.FoundBy));
-
-            var selectedBook = Map.Books.Where(x => x.Text.Contains(title)).FirstOrDefault();
-
-            if (selectedBook != null)
-                selectedBook.Click();
-
             Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.BookStoreHeader.FoundBy));
+            return Map.BookStoreHeader;
+        } 
 
-            js.ExecuteScript("window.scrollTo(0,document.body.scrollHeight)");
-
-            Driver.Wait.Until(ExpectedConditions.ElementToBeClickable(Map.AddNewRecordButton.FoundBy));
-            Map.AddNewRecordButton.Click();
-
-            Driver.Wait.Until(ExpectedConditions.AlertIsPresent());
-            AcceptAlert();
+        public void WaitForUserInBookStorePage()
+        {
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.BookStoreHeader.FoundBy));
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.UsernameLabel.FoundBy));
         }
-
-        private void AcceptAlert() => Map.Alert.Accept();
 
         public void FindBooksByTitle(string title) 
         {

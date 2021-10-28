@@ -19,7 +19,7 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
             return this;
         }
 
-        public void UserLogin(string username, string password)
+        public void EnterUserCredential(string username, string password)
         {
             Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.LoginHeader.FoundBy));
 
@@ -28,12 +28,18 @@ namespace SimpleSeleniumFramework.DemoQA.PageObjects
 
             Map.PasswordTextbox.Clear();
             Map.PasswordTextbox.SendKeys(password);
-
-            Map.LoginButton.Click();
         }
 
+        public void ClickOnLoginButton()
+        {
+            Driver.Wait.Until(ExpectedConditions.ElementToBeClickable(Map.LoginButton.FoundBy)).Click();
+        }
 
-        public IWebElement GetHeader() => Map.LoginHeader;
+        public IWebElement GetHeader()
+        {
+            Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.LoginHeader.FoundBy));
+            return Map.LoginHeader;
+        }
     }
 
     public class LoginMap
