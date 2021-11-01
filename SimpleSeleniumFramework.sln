@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSeleniumFramework", "SimpleSeleniumFramework\SimpleSeleniumFramework.csproj", "{6E1EA29B-6B15-4ECA-81EA-32317DA053E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSeleniumFramework", "SimpleSeleniumFramework\SimpleSeleniumFramework.csproj", "{6E1EA29B-6B15-4ECA-81EA-32317DA053E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQAWebApp", "DemoQA\DemoQAWebApp.csproj", "{D78A9E27-7EE7-4C67-B290-62BE6EA1CADD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6E1EA29B-6B15-4ECA-81EA-32317DA053E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E1EA29B-6B15-4ECA-81EA-32317DA053E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E1EA29B-6B15-4ECA-81EA-32317DA053E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D78A9E27-7EE7-4C67-B290-62BE6EA1CADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78A9E27-7EE7-4C67-B290-62BE6EA1CADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D78A9E27-7EE7-4C67-B290-62BE6EA1CADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D78A9E27-7EE7-4C67-B290-62BE6EA1CADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

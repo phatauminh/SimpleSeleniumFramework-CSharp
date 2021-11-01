@@ -4,33 +4,20 @@
     <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
-    <PackageReference Include="NUnit" Version="3.13.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="coverlet.collector" Version="3.0.2" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="WebDriverManager" Version="2.12.1" />
   </ItemGroup>
-
-  
-  <ItemGroup>
-    <Folder Include="DemoQA\" />
-    <Folder Include="DemoQA.Tests\" />
-    <Folder Include="DemoQA\PageObjects\" />
-    <Folder Include="DemoQA\Framework\" />
-    <Folder Include="DemoQA\Common\" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove="DemoQA\" />
     <None Remove="DemoQA.Tests\" />
-    <None Remove="DemoQA\PageObjects\" />
-    <None Remove="DemoQA\Framework\" />
-    <None Remove="DemoQA\Common\" />
   </ItemGroup>
 </Project>
