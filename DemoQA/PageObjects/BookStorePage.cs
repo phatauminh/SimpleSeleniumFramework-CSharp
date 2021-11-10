@@ -36,7 +36,6 @@ namespace DemoQAWebApp.PageObjects
 
         public void FindBooksByTitle(string title) 
         {
-            Map.SearchTextbox.Clear();
             Map.SearchTextbox.SendKeys(title);
         }
 

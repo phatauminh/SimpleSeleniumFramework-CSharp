@@ -15,10 +15,23 @@ namespace AutomationPracticeWebApp.PageObjects
             Map = new CreateAccountMap();
         }
 
-        public void FillUserAccountInformation(UserAccount userAccount)
+        public MyAccountPage RegisterAccountWithValidInfos(UserAccount userAccount)
         {
             WaitForUserInAuthenticationPage();
             WaitForAccountCreationFormVisible();
+
+            FillUserAccountInformation(userAccount);
+
+            if (userAccount.Address != null)
+                FillUserAddress(userAccount.Address);
+
+            Driver.Wait.Until(ExpectedConditions.ElementToBeClickable(Map.SubmitAccountButton.FoundBy)).Click();
+
+            return new MyAccountPage();
+        }
+
+        private void FillUserAccountInformation(UserAccount userAccount)
+        {
 
             if(userAccount.Gender != Gender.Unknown)
             {
@@ -30,9 +43,6 @@ namespace AutomationPracticeWebApp.PageObjects
             Map.CustomerFirstNameTextField.SendKeys(userAccount.FirstName);
             Map.CustomerLastNameTextField.SendKeys(userAccount.LastName);
             Map.PasswordTextField.SendKeys(userAccount.Password);
-
-            if (userAccount.Address != null)
-                FillUserAddress(userAccount.Address);
         }
 
         private void FillUserAddress(UserAddress userAddress)

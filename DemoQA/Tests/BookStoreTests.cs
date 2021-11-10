@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using DemoQAWebApp.Common;
+﻿using DemoQAWebApp.Common;
 using NUnit.Framework;
 using SimpleSeleniumFramework.Selenium;
+using System.Collections.Generic;
 
 namespace DemoQAWebApp.Tests
 {

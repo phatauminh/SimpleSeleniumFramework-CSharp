@@ -1,7 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SimpleSeleniumFramework.Selenium;
-using System.Threading;
 
 namespace AutomationPracticeWebApp.PageObjects
 {
@@ -19,7 +18,6 @@ namespace AutomationPracticeWebApp.PageObjects
             WaitForUserInAuthenticationPage();
             Driver.Wait.Until(ExpectedConditions.ElementIsVisible(Map.CreateAccountTextField.FoundBy));
             Map.CreateAccountTextField.SendKeys(email);
-            Thread.Sleep(3000);
             Driver.Wait.Until(ExpectedConditions.ElementToBeClickable(Map.CreateAccountButton.FoundBy)).Click();
 
             return new CreateAccountPage();

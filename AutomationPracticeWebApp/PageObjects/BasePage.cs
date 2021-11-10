@@ -12,6 +12,6 @@ namespace AutomationPracticeWebApp.PageObjects
         }
 
         private Element NavigationTo(string page)
-            => Driver.FindElement(By.XPath($"//span[@class = 'navigation_page' and contains(text(),'{page}')] "));
+            => Driver.FindElement(By.XPath($"//span[@class = 'navigation_page' and normalize-space()='{page}'] "));
     }
 }
