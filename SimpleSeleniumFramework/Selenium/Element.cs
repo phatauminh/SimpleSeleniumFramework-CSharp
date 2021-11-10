@@ -75,6 +75,7 @@ namespace SimpleSeleniumFramework.Selenium
 
         public void SendKeys(string text)
         {
+            Current.Clear();
             Current.SendKeys(text);
         }
 

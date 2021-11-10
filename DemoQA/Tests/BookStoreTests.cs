@@ -21,7 +21,6 @@ namespace DemoQAWebApp.Tests
             Driver.Init("chrome");
             Pages.Init();
             Driver.GoToUrl("https://demoqa.com");
-            Console.WriteLine("Setup");
         }
 
         [TestCase("Git Pocket Guide")]
